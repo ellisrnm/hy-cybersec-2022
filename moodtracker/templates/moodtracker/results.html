@@ -1,0 +1,13 @@
+{% if latest_ratings %}
+    <ul>
+    {% for rating in latest_ratings %}
+        <li><a href="/moodtracker/">{{ rating.rating }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No ratings are available.</p>
+{% endif %}
+
+<ul>
+    <li><a href="{% url 'index' %}">Return to front page</a></li>
+</ul>
