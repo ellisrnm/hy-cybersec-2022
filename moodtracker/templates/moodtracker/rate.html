@@ -1,4 +1,41 @@
-<p>Rate your mood</p>
+<form action="{% url 'rate' %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <legend><h1>Rate your mood</h1></legend>
+        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+          <label>
+            <input type="radio" name="rating" value="1" />
+            <span class="icon">★</span>
+          </label>
+          <label>
+            <input type="radio" name="rating" value="2" />
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+          <label>
+            <input type="radio" name="rating" value="3" />
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+          <label>
+            <input type="radio" name="rating" value="4" />
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+          <label>
+            <input type="radio" name="rating" value="5" />
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+          </label>
+    </fieldset>
+    <input type="submit" value="Rate">
+    </form>
 
 <ul>
     <li><a href="{% url 'index' %}">Return to front page</a></li>
