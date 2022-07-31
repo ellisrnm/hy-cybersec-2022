@@ -9,6 +9,18 @@
 </head>
 
 <body>
-    {% block content %}{% endblock %}
+    <header class="main-header">
+        <nav class="main-nav">
+            <li><a href="{% url 'index' %}">HOME</a></li>
+            <li><a href="{% url 'rate' %}">RATE</a></li>
+            <li><a href="{% url 'results' %}">RESULTS</a></li>
+        </nav>
+        <h1>
+            Moodtracker
+        </h1>
+    </header>
+    <section class="content-section">
+        {% block content %}{% endblock %}
+    </section>
 </body>
 </html>
