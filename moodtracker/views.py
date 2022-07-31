@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
+from datetime import timezone as tz
 
 from .models import Mood
 
@@ -23,8 +24,16 @@ def rate(request):
     return render(request, 'moodtracker/rate.html')
 
 def results(request):
-    latest_ratings = Mood.objects.all().order_by('date')
+    ratings = Mood.objects.all()
+
+    dates = []
+    own_ratings = []
+    for rating in ratings:
+        dates.append(rating.date.replace(tzinfo=tz.utc).timestamp() * 1000)
+        own_ratings.append(rating.rating)
+
     context = {
-        'latest_ratings': latest_ratings,
+        'dates': dates,
+        'own_ratings': own_ratings,
     }
     return render(request, 'moodtracker/results.html', context)

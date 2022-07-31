@@ -2,18 +2,46 @@
 
 {% block content %}
 
-{% if latest_ratings %}
-    <ul>
-    {% for rating in latest_ratings %}
-        <li><a href="/moodtracker/">{{ rating.rating }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No ratings are available.</p>
-{% endif %}
+<h3>Results</h3>
 
-<ul>
-    <li><a href="{% url 'index' %}">Return to front page</a></li>
-</ul>
+<p><canvas id="resultchart" style="width:100%;max-width:550px"></canvas></p>
+
+<script>
+    var xValues = JSON.parse("{{ dates }}")
+    var yValues = JSON.parse("{{ own_ratings }}")
+    console.log(xValues)
+    console.log(yValues)
+
+    new Chart("resultchart", {
+    type: "line",
+    data: {
+        labels: xValues,
+        datasets: [{
+        label: 'Your rating',
+        data: yValues,
+        borderColor: "red",
+        backgroundColor: "red"
+        }
+    ]
+    },
+    options: {
+        scales: {
+            x: {
+                type: 'timeseries',
+            },
+            y: {
+                min: 1,
+                max: 10
+            }
+        },
+        plugins: {
+            legend: {
+                display: true,
+                position: 'bottom',
+            }
+        }
+    }
+    });
+</script>
 
 {% endblock %}
