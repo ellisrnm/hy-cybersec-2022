@@ -1,3 +1,7 @@
+{% extends "moodtracker/layout.html" %}
+
+{% block content %}
+
 {% if latest_ratings %}
     <ul>
     {% for rating in latest_ratings %}
@@ -11,3 +15,5 @@
 <ul>
     <li><a href="{% url 'index' %}">Return to front page</a></li>
 </ul>
+
+{% endblock %}
