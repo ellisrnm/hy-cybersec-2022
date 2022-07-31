@@ -15,7 +15,7 @@ def rate(request):
             selected_rating = request.POST['rating']
         except:
             return render(request, 'moodtracker/rate.html', {
-                'error_message': "You didn't select a rating.",
+                'error_message': "Please select a rating",
             })
         new_rating = Mood.objects.create(rating=selected_rating, date=timezone.now())
         new_rating.save()
