@@ -2,11 +2,30 @@
 
 {% block content %}
 
-<p>Welcome to Moodtracker</p>
+<h3>Welcome to Moodtracker</h3>
 
-<ul>
-    <li><a href="{% url 'rate' %}">Rate your mood</a></li>
-    <li><a href="{% url 'results' %}">Go to results</a></li>
-</ul>
+<p>
+    Moodtracker is a simple web application that allows you to measure your happiness
+    and displays your results on a chart. Your results are then compared against
+    other users of the application.
+</p>
+
+<p>
+    <ul>
+        <li><a href="{% url 'rate' %}">Rate your mood</a></li>
+        <li><a href="{% url 'results' %}">Go to results</a></li>
+    </ul>
+</p>
+
+<h3>
+     Note!
+</h3>
+
+<p>
+    Please note that this web app has been created for the course
+    <a href="https://cybersecuritybase.mooc.fi/" target="_blank">Cyber Security Base</a>
+    and it contains security flaws. The goal of this course project was to construct a
+    web application that has at least five different flaws from the OWASP top ten list.
+</p>
 
 {% endblock %}
