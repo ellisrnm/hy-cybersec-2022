@@ -12,6 +12,25 @@ Unless otherwise stated, the code line refers to views.py file.
 
 ### How to get started
 
+- Clone the directory with git clone
+- Create a new virtual environment for the project with python3 -m venv
+- Activate the virtual environment you just created
+- Install required packaged with
+
+        pip install -r requirements.txt
+
+- Make sure the database is initialized
+
+        python manage.py migrate
+
+- Start the server with
+
+        python manage.py runserver
+
+- Go to
+
+        localhost:8000/moodtracker/
+
 ### #1 Broken Access Control
 
 Access Control policies should make sure that user cannot perform any actions or access any resources outside their intended permissions.
@@ -46,7 +65,7 @@ The application will show you an error message _Something went wrong_. If you no
 
 The solution is to use ORM so in this case Django's built-in QuerySet API instead. If raw queries are needed, the inputs should be parameterized. In this case, I have provided the solution in the [lines 67-70](https://github.com/ellisrnm/hy-cybersec-2022/blob/main/moodtracker/views.py#L67-L70) by using QuerySet API because it's the safest and also removes all the additional steps from the code.
 
-### Cross-site Scripting
+### #4 Cross-site Scripting
 
 XSS vulnerabilities allow users to include malicious content to a site.
 
