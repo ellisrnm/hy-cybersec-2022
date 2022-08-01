@@ -10,7 +10,7 @@
 </p>
 
 <form action="{% url 'rate' %}" method="post">
-    {% csrf_token %}
+    <!-- {% csrf_token %} -->
     <fieldset>
         <div class="rate">
           <input type="radio" id="star10" name="rating" value="10"/><label for="star10" title="text">10</label>

@@ -1,9 +1,15 @@
+#from django.forms import ValidationError
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
 from datetime import timezone as tz
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.hashers import check_password
+from django.shortcuts import get_object_or_404
+from django.db import connection
+from django.views.decorators.csrf import csrf_exempt
+#from django.contrib.auth.password_validation import validate_password
 #from django.contrib.auth.decorators import login_required
 
 from .models import Mood
@@ -14,6 +20,7 @@ def index(request):
     return render(request, 'moodtracker/index.html')
 
 #@login_required(login_url='/moodtracker/login')
+@csrf_exempt
 def rate(request):
     if request.method == 'POST':
         try:
@@ -48,12 +55,21 @@ def login_view(request):
         try:
             username = request.POST['username']
             password = request.POST['password']
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
+            sql = 'SELECT * FROM auth_user WHERE username="' + username + '"'
+            with connection.cursor() as cursor:
+                cursor.executescript(sql)
+            user = get_object_or_404(User, username=username)
+            if user and check_password(password, user.password):
                 login(request, user)
                 return HttpResponseRedirect(reverse('index'))
             else:
                 context = {'error_message': "Wrong username or password"}
+            #user = authenticate(request, username=username, password=password)
+            # if user is not None:
+            #     login(request, user)
+            #     return HttpResponseRedirect(reverse('index'))
+            # else:
+            #     context = {'error_message': "Wrong username or password"}
         except:
             context = {'error_message': "Something went wrong"}
         return render(request, 'moodtracker/login.html', context)
@@ -64,6 +80,16 @@ def register_view(request):
         try:
             selected_username = request.POST['username']
             selected_password = request.POST['password']
+            # if len(selected_username)<3:
+            #     return render(request, 'moodtracker/register.html', {
+            #     'error_message': "Your username should be at least 3 characters",
+            # })
+            # try:
+            #     validate_password(selected_password)
+            # except ValidationError:
+            #     return render(request, 'moodtracker/register.html', {
+            #     'error_message': "The password you have selected is too weak",
+            # })
             user = User.objects.create_user(username=selected_username, password=selected_password)
             user.save()
         except:

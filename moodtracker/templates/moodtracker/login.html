@@ -2,6 +2,12 @@
 
 {% block content %}
 
+{% if user.is_authenticated %}
+
+<p>You are already logged in as {{ user.username|safe }}</p>
+
+{% else %}
+
 <h3>Login</h3>
 
 <p>
@@ -18,11 +24,12 @@
         </p>
         <p>
             <label for="password">Password: </label>
-            <input id="password" type="text" name="password">
+            <input id="password" type="password" name="password">
         </p>
     </div>
     <p class="error-message">{% if error_message %}{{ error_message }}{% endif %}</p>
     <p><input type="submit" value="Login" class="form-submit-button"></p>
   </form>
 
+{% endif %}
 {% endblock %}
