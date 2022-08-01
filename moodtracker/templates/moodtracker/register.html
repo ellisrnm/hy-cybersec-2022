@@ -1,0 +1,27 @@
+{% extends "moodtracker/layout.html" %}
+
+{% block content %}
+
+<h3>Register</h3>
+
+<p>
+  If you already have an account, <a href="{% url 'login' %}">login here</a>.
+</p>
+
+<form action="{% url 'register' %}" method="post">
+    {% csrf_token %}
+    <div>
+        <p>
+            <label for="username">Username: </label>
+            <input id="username" type="text" name="username">
+        </p>
+        <p>
+            <label for="password">Password: </label>
+            <input id="password" type="text" name="password">
+        </p>
+    </div>
+    <p class="error-message">{% if error_message %}{{ error_message }}{% endif %}</p>
+    <p><input type="submit" value="Register" class="form-submit-button"></p>
+  </form>
+
+{% endblock %}

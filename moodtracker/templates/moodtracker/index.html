@@ -12,8 +12,13 @@
 
 <p>
     <ul>
+        {% if user.is_authenticated %}
         <li><a href="{% url 'rate' %}">Rate your mood</a></li>
         <li><a href="{% url 'results' %}">Go to results</a></li>
+        {% else %}
+        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'register' %}">Register</a></li>
+        {% endif %}
     </ul>
 </p>
 
